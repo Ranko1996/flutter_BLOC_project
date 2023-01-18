@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tasks_app/blocs/bloc_exports.dart';
+import 'package:flutter_tasks_app/services/guid_gen.dart';
 
 import '../models/task.dart';
 
@@ -44,6 +45,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 onPressed: () {
                   var task = Task(
                     title: titleController.text,
+                    id: GUIDGen.generate(),
                   );
                   context.read<TasksBloc>().add(
                         AddTask(task: task),
