@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tasks_app/blocs/bloc_exports.dart';
 
-class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({
-    Key? key,
-    required this.titleController,
-  }) : super(key: key);
+import '../models/task.dart';
 
-  final TextEditingController titleController;
+class AddTaskScreen extends StatefulWidget {
+  const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  @override
   Widget build(BuildContext context) {
+    TextEditingController titleController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -29,13 +33,26 @@ class AddTaskScreen extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Add Task'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('cancel'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  var task = Task(
+                    title: titleController.text,
+                  );
+                  context.read<TasksBloc>().add(
+                        AddTask(task: task),
+                      );
+                      Navigator.pop(context);
+                },
+                child: const Text('Add Task'),
+              ),
+            ],
           ),
         ],
       ),
