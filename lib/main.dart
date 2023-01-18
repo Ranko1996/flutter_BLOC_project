@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tasks_app/models/task.dart';
 
 import 'blocs/bloc_exports.dart';
 import 'screens/tasks_screen.dart';
